@@ -161,4 +161,6 @@ O sistema avança a narrativa com base na decisão tomada.
 
 O jogador escolhe a opção “Sair”.
 O sistema encerra a execução do jogo de forma segura.
+
+
 ---
