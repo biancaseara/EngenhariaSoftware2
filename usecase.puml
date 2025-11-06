@@ -1,0 +1,53 @@
+@startuml usecase.puml
+
+left to right direction
+
+actor Jogador
+
+rectangle "Sistema BACKEND - The Gutter" {
+
+  usecase "Iniciar Jogo" as UC_Iniciar
+  usecase "Sair do Jogo" as UC_Sair
+  usecase "Finalizar Jogo" as UC_Finalizar
+
+  usecase "Configurar Personagem" as UC_Configurar
+  usecase "Explorar Ambiente" as UC_Explorar
+  usecase "Interagir com Objetos" as UC_Interagir
+  usecase "Coletar Itens" as UC_Coletar
+  usecase "Realizar QTE" as UC_QTE
+  usecase "Tomar Decisões" as UC_Decisoes
+
+  'Casos Específicos
+  usecase "Fornecer/Confirmar Nome" as UC_Nome
+  usecase "Fornecer/Confirmar Signo" as UC_Signo
+  usecase "Navegar Salas" as UC_Salas
+  usecase "Interações (Gavetas, Lampião,\nNegociação, Roubo)" as UC_Interacoes
+  usecase "Eventos de Ação Rápida (QTE)" as UC_QTE_Espec
+  usecase "Escolhas Morais" as UC_Moral
+
+}
+
+' Relações
+Jogador --> UC_Iniciar
+Jogador --> UC_Sair
+Jogador --> UC_Finalizar
+
+Jogador --> UC_Configurar
+UC_Configurar --> UC_Nome : <<include>>
+UC_Configurar --> UC_Signo : <<include>>
+
+Jogador --> UC_Explorar
+UC_Explorar --> UC_Salas : <<include>>
+
+Jogador --> UC_Interagir
+UC_Interagir --> UC_Interacoes : <<include>>
+
+Jogador --> UC_Coletar
+
+Jogador --> UC_QTE
+UC_QTE --> UC_QTE_Espec : <<include>>
+
+Jogador --> UC_Decisoes
+UC_Decisoes --> UC_Moral : <<include>>
+
+@enduml
