@@ -159,6 +159,6 @@ O sistema avança a narrativa com base na decisão tomada.
 
 5.8 Finalizar / Sair do Jogo
 
-* O jogador escolhe a opção “Sair”.
+O jogador escolhe a opção “Sair”.
 O sistema encerra a execução do jogo de forma segura.
 ---
