@@ -90,7 +90,7 @@ Jogadores com interesse em jogos narrativos.
 | RF004  | O sistema deve exibir textos narrativos e imagens referentes às cenas.         |
 | RF005  | O sistema deve permitir que o jogador selecione opções numeradas para avançar. |
 | RF006  | O sistema deve permitir adicionar e consultar itens coletados.                 |
-| RF007  | O sistema deve registrar decisões e alterar cenas futuras com base nelas.      |
+| RF005  | O sistema deve registrar decisões e alterar cenas futuras com base nelas.      |
 | RF008  | O sistema deve apresentar eventos de reação rápida em determinados pontos.     |
 | RF009  | O sistema deve apresentar finais distintos conforme decisões registradas.      |
 
@@ -109,9 +109,9 @@ Jogadores com interesse em jogos narrativos.
 
 
 
-## 7. Casos de Uso
+## 5. Casos de Uso
 
-### 7.1. Iniciar jogo
+### 5.1. Iniciar jogo
 
 O jogador executa o programa.
 O sistema exibe a tela inicial.
@@ -119,30 +119,30 @@ O jogador seleciona a opção “Iniciar”.
 O sistema inicia a narrativa.
 
 
-7.2 Configurar personagem
+5.2 Configurar personagem
 
 O sistema solicita nome e signo do personagem.
 O jogador informa os dados.
 O sistema registra as informações e personaliza o início da história.
 
-7.3. Explorar ambiente
+5.3. Explorar ambiente
 O jogador escolhe navegar pelos cenários e áreas disponíveis.
 O sistema muda a tela ou descrição para a nova sala ou local.
 O jogador pode continuar explorando ou retornar.
 
-7.4. Interagir com objetos
+5.4. Interagir com objetos
 O jogador seleciona um objeto ou elemento do ambiente (ex.: gavetas, lampião, mesa).
 O sistema apresenta o resultado da interação (abrir, acender, observar, pegar).
 O jogo continua com base nessa interação.
 
-7.5. Coletar itens
+5.5. Coletar itens
 
 O jogador encontra um item no ambiente.
 O jogador escolhe coletar.
 O sistema adiciona o item ao inventário do personagem.
 
 
-7.6. Realizar QTE (Quick Time Event)
+5.6. Realizar QTE (Quick Time Event)
 
 O sistema apresenta um evento que exige ação rápida (ex.: fuga, desviar, empurrar).
 O sistema exibe uma tecla ou sequência para o jogador pressionar rapidamente.
@@ -150,14 +150,14 @@ O jogador tenta executar a ação no tempo limite.
 Se acertar: o sistema continua a narrativa com sucesso.
 Se falhar: o sistema segue para uma consequência negativa ou alternativa.
 
-7.7 Tomar decisões
+5.7 Tomar decisões
 
 O jogador chega em um ponto da história com múltiplas escolhas.
 O sistema apresenta opções (ex.: negociar, roubar, ajudar, ignorar).
 O jogador seleciona uma das alternativas.
 O sistema avança a narrativa com base na decisão tomada.
 
-7.8 Finalizar / Sair do Jogo
+5.8 Finalizar / Sair do Jogo
 
 O jogador escolhe a opção “Sair”.
 O sistema encerra a execução do jogo de forma segura.
