@@ -1,0 +1,58 @@
+@startgantt Diagrama de Gantt Produção
+
+
+
+Project starts 2025-10-02
+[Criou repositório Git] starts 2025-10-02 and ends 2025-10-02 and is colored in pink
+[Adaptou código para Orientada a Objeto] starts 2025-10-02 and ends 2025-10-03 and is colored in lightblue
+[Testes do Backend] starts 2025-10-04 and ends 2025-11-05 and is colored in lightblue
+[Criação da Documentação] starts 2025-10-02 and ends 2025-11-05 and is colored in lightgreen
+[Elaboração do diagrama de Caso de Uso] starts 2025-11-05 and ends 2025-11-05 and is colored in lightgreen
+[Elaboração do Gráfico de Gantt] starts 2025-11-05 and ends 2025-11-05 and is colored in lightgreen
+
+
+''Novos prazos
+
+[Criação FrontEnd] requires 20 days and starts 2025-11-10
+[Testes do FrontEnd] requires 10 days and starts 2025-11-30
+
+2025-10-27 to 2025-10-31 are closed
+saturday are closed
+sunday are closed
+
+/'
+27/10 = Antecipação do feriado de 28/10 (Dia do Servidor Público)
+28/10 & 29/10 = Paralização Nacional do Sinasefe
+30/10 = Aniversário de 15 anos das Licenciaturas
+31/10 = Festa de Halloween
+'/
+
+/'
+A partir daqui, agendamento são futuros
+
+CRONOGRAMA DE REFERÊNCIA
+
+06/11/2025 - Apresentação - Testes de Software
+18/12/2025 - Apresentação - Falhas de Software
+12/02/2026 - Apresentação - Seminário
+12/03/2026 - Apresentação - Riscos e Qualidade
+
+'/
+
+[Apresentação - Testes de Software] starts 2025-11-06 and ends 2025-11-06 and is colored in red
+[Apresentação - Falhas de Software] starts 2025-12-18 and ends 2025-12-18 and is colored in red
+[Apresentação - Seminário] starts 2026-02-12 and ends 2026-02-12 and is colored in red
+[Apresentação - Riscos e Qualidade] starts 2026-03-12 and ends 2026-03-12 and is colored in red
+
+
+
+@endgantt
+
+
+' Cores associadas
+' pink - Tarefa associadas ao Git/GitHub
+' lightblue - Tarefas de desenvolvimento de código
+' lightgreen - Tarefas de documentação e planejamento
+' red - deadlines importantes
+' sem cor - Tarefas futuras ou de referência
+
