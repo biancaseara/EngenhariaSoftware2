@@ -38,4 +38,8 @@
         "deactivate_conan*.bat": true,
         "docs/": true,
     },
+    "sonarlint.connectedMode.project": {
+        "connectionId":,
+        "projectKey":,
+    }
 }
