@@ -1,6 +1,18 @@
 from enum import Enum, auto
 import time
 
+# Contantes
+CHAVE_VELHA = "CHAVE VELHA"
+CONTINUAR = "PRESSIONE ENTER PARA CONTINUAR"
+DIREITA_BIBLIOTECA = "[1] Ir para a direita (biblioteca)"
+FRENTE_BURACO = "[2] Ir para frente (buraco)"
+VOLTAR_FORA = "[3] Voltar para fora"
+OLHAR_ESTANTES = "[1] Olhar estantes"
+PEGAR_LAMPIAO =   "[2] Pegar lampião"
+VOLTAR_SALAO = "[3] Voltar para o salão"
+RETORNA_SALAO = "Você retorna ao salão."
+
+
 class Tela(Enum):
     MENU = auto()
     INTRO = auto()
@@ -27,7 +39,7 @@ class Tela(Enum):
     FIM = auto()
 
 class QTEType(Enum):
-    TUTORIAL = auto()
+    TUTORIAL = auto
     QTE1 = auto()
     QTE2 = auto()
     QTE3 = auto()
@@ -174,9 +186,7 @@ class GameState:
         elif signo == 'peixes':
             self.player.planta = 'Rio de Caramuru'
 
-    def process_action(self, action, value=None):
-        
-
+    def process_action(self, value=None):        
         if self.tela_atual == Tela.MENU:
             if value == "1":
                 self.tela_atual = Tela.INTRO
@@ -214,7 +224,7 @@ class GameState:
                 self.textos = [
                     f"Seu signo ({self.player.signo}) foi confirmado.",
                     f"Sua planta especial: {self.player.planta}.",
-                    "PRESSIONE ENTER PARA CONTINUAR"
+                    CONTINUAR
                 ]
                 self.escolhas = ["ok"]
             elif value == "2":
@@ -226,9 +236,9 @@ class GameState:
             self.textos = [
                 "Você está no salão principal da árvore.",
                 "O que deseja fazer?",
-                "[1] Ir para a direita (biblioteca)",
-                "[2] Ir para frente (buraco)",
-                "[3] Voltar para fora"
+                DIREITA_BIBLIOTECA,
+                FRENTE_BURACO,
+                VOLTAR_FORA
             ]
             self.escolhas = ["1", "2", "3"]
         elif self.tela_atual == Tela.ESCOLHA_SALAO:
@@ -236,17 +246,17 @@ class GameState:
                 self.tela_atual = Tela.BIBLIOTECA
                 self.textos = [
                     "Você entrou na biblioteca.",
-                    "[1] Olhar estantes",
-                    "[2] Pegar lampião",
-                    "[3] Voltar para o salão"
+                    OLHAR_ESTANTES,
+                    PEGAR_LAMPIAO,
+                    VOLTAR_SALAO
                 ]
                 self.escolhas = ["1", "2", "3"]
             elif value == "2":
                 self.tela_atual = Tela.BURACO
-                self.textos = ["Você se aproxima do buraco escuro.", "PRESSIONE ENTER PARA CONTINUAR"]
+                self.textos = ["Você se aproxima do buraco escuro.", CONTINUAR]
                 self.escolhas = ["ok"]
             elif value == "3":
-                self.textos = ["Não Lara, você precisa do livro. É por ela, lembra disso...", "PRESSIONE ENTER PARA CONTINUAR"]
+                self.textos = ["Não Lara, você precisa do livro. É por ela, lembra disso...", CONTINUAR]
                 self.escolhas = ["ok"]
         elif self.tela_atual == Tela.BIBLIOTECA:
             if value == "1":
@@ -268,15 +278,15 @@ class GameState:
             elif value == "3":
                 self.tela_atual = Tela.ESCOLHA_SALAO
                 self.textos = [
-                    "Você retorna ao salão.",
-                    "[1] Ir para a direita (biblioteca)",
-                    "[2] Ir para frente (buraco)",
-                    "[3] Voltar para fora"
+                    RETORNA_SALAO,
+                    DIREITA_BIBLIOTECA,
+                    FRENTE_BURACO,
+                    VOLTAR_FORA
                 ]
                 self.escolhas = ["1", "2", "3"]
         elif self.tela_atual == Tela.GAVETAS:
             if value == "1":
-                self.player.add_item("CHAVE VELHA")
+                self.player.add_item(CHAVE_VELHA)
                 self.choices.impacto1.append("Você abriu a gaveta e encontrou a CHAVE VELHA.")
                 self.tela_atual = Tela.BIBLIOTECA_CHAVE
                 self.textos = [
@@ -290,9 +300,9 @@ class GameState:
                 self.tela_atual = Tela.BIBLIOTECA
                 self.textos = [
                     "Você decide não mexer nas gavetas.",
-                    "[1] Olhar estantes",
-                    "[2] Pegar lampião",
-                    "[3] Voltar para o salão"
+                    OLHAR_ESTANTES,
+                    PEGAR_LAMPIAO,
+                    VOLTAR_SALAO
                 ]
                 self.escolhas = ["1", "2", "3"]
         elif self.tela_atual == Tela.LAMPIAO:
@@ -302,7 +312,7 @@ class GameState:
                 self.tela_atual = Tela.BIBLIOTECA_LAMPIAO
                 self.textos = [
                     "Você pegou o lampião.",
-                    "[1] Olhar estantes",
+                    OLHAR_ESTANTES,
                     "[2] Deixar pra lá"
                 ]
                 self.escolhas = ["1", "2"]
@@ -311,9 +321,9 @@ class GameState:
                 self.tela_atual = Tela.BIBLIOTECA
                 self.textos = [
                     "Você decide não pegar o lampião.",
-                    "[1] Olhar estantes",
-                    "[2] Pegar lampião",
-                    "[3] Voltar para o salão"
+                    OLHAR_ESTANTES,
+                    PEGAR_LAMPIAO,
+                    VOLTAR_SALAO
                 ]
                 self.escolhas = ["1", "2", "3"]
         elif self.tela_atual == Tela.BIBLIOTECA_CHAVE:
@@ -322,49 +332,49 @@ class GameState:
                 self.choices.impacto2.append("Você pegou o lampião!")
                 self.tela_atual = Tela.ESCOLHA_SALAO
                 self.textos = [
-                    "Você retorna ao salão.",
-                    "[1] Ir para a direita (biblioteca)",
-                    "[2] Ir para frente (buraco)",
-                    "[3] Voltar para fora"
+                    RETORNA_SALAO,
+                    DIREITA_BIBLIOTECA,
+                    FRENTE_BURACO,
+                    VOLTAR_FORA
                 ]
                 self.escolhas = ["1", "2", "3"]
             elif value == "2":
                 self.choices.impacto2.append("Você não pegou o lampião.")
                 self.tela_atual = Tela.ESCOLHA_SALAO
                 self.textos = [
-                    "Você retorna ao salão.",
-                    "[1] Ir para a direita (biblioteca)",
-                    "[2] Ir para frente (buraco)",
-                    "[3] Voltar para fora"
+                    RETORNA_SALAO,
+                    DIREITA_BIBLIOTECA,
+                    FRENTE_BURACO,
+                    VOLTAR_FORA
                 ]
                 self.escolhas = ["1", "2", "3"]
         elif self.tela_atual == Tela.BIBLIOTECA_LAMPIAO:
             if value == "1":
-                self.player.add_item("CHAVE VELHA")
+                self.player.add_item(CHAVE_VELHA)
                 self.choices.impacto1.append("Você abriu a gaveta e encontrou a CHAVE VELHA.")
                 self.tela_atual = Tela.ESCOLHA_SALAO
                 self.textos = [
-                    "Você retorna ao salão.",
-                    "[1] Ir para a direita (biblioteca)",
-                    "[2] Ir para frente (buraco)",
-                    "[3] Voltar para fora"
+                    RETORNA_SALAO,
+                    DIREITA_BIBLIOTECA,
+                    FRENTE_BURACO,
+                    VOLTAR_FORA
                 ]
                 self.escolhas = ["1", "2", "3"]
             elif value == "2":
                 self.choices.impacto1.append("Você não abriu a gaveta.")
                 self.tela_atual = Tela.ESCOLHA_SALAO
                 self.textos = [
-                    "Você retorna ao salão.",
-                    "[1] Ir para a direita (biblioteca)",
-                    "[2] Ir para frente (buraco)",
-                    "[3] Voltar para fora"
+                    RETORNA_SALAO,
+                    DIREITA_BIBLIOTECA,
+                    FRENTE_BURACO,
+                    VOLTAR_FORA
                 ]
                 self.escolhas = ["1", "2", "3"]
         elif self.tela_atual == Tela.BURACO:
             self.tela_atual = Tela.COZINHA
             self.textos = [
                 "Você desce pelo buraco e chega à cozinha.",
-                "PRESSIONE ENTER PARA CONTINUAR"
+                CONTINUAR
             ]
             self.escolhas = ["ok"]
         elif self.tela_atual == Tela.COZINHA:
@@ -377,10 +387,10 @@ class GameState:
             self.escolhas = ["1", "2"]
         elif self.tela_atual == Tela.COZINHA_CHOICE:
             if value == "1":
-                if self.player.has_item("CHAVE VELHA"):
+                if self.player.has_item(CHAVE_VELHA):
                     self.textos = [
                         "Você oferece a CHAVE VELHA. A Cuca aceita e entrega o livro.",
-                        "PRESSIONE ENTER PARA CONTINUAR"
+                        CONTINUAR
                     ]
                     self.player.add_item("HERBÁRIO")
                     self.tela_atual = Tela.FUGA
@@ -388,7 +398,7 @@ class GameState:
                 else:
                     self.textos = [
                         "Você não tem a CHAVE VELHA. A negociação falha.",
-                        "PRESSIONE ENTER PARA CONTINUAR"
+                        CONTINUAR
                     ]
                     self.tela_atual = Tela.GAME_OVER
                     self.escolhas = ["ok"]
@@ -410,7 +420,7 @@ class GameState:
                 self.player.add_item("HERBÁRIO")
                 self.textos = [
                     "Você roubou o livro com sucesso!",
-                    "PRESSIONE ENTER PARA CONTINUAR"
+                    CONTINUAR
                 ]
                 self.tela_atual = Tela.FUGA
                 self.escolhas = ["ok"]
@@ -431,19 +441,19 @@ class GameState:
             ]
             self.escolhas = ["1", "2"]
         elif self.tela_atual == Tela.ACOUGUE:
-            if value == "1" and self.player.has_item("CHAVE VELHA"):
+            if value == "1" and self.player.has_item(CHAVE_VELHA):
                 self.choices.crianca_salva.append("Você salvou a criança!")
                 self.textos = [
                     "Você salvou a criança!",
-                    "PRESSIONE ENTER PARA CONTINUAR"
+                    CONTINUAR
                 ]
                 self.tela_atual = Tela.OUTRO_ANFITRIAO
                 self.escolhas = ["ok"]
-            elif value == "2" or not self.player.has_item("CHAVE VELHA"):
+            elif value == "2" or not self.player.has_item(CHAVE_VELHA):
                 self.choices.crianca_salva.append("Você não salvou a criança.")
                 self.textos = [
                     "Você não conseguiu salvar a criança.",
-                    "PRESSIONE ENTER PARA CONTINUAR"
+                    CONTINUAR
                 ]
                 self.tela_atual = Tela.OUTRO_ANFITRIAO
                 self.escolhas = ["ok"]
