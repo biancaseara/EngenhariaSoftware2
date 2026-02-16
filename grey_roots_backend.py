@@ -3,6 +3,7 @@ import time
 
 # Contantes
 CHAVE_VELHA = "CHAVE VELHA"
+VOLTAR = "Voltar"
 CONTINUAR = "PRESSIONE ENTER PARA CONTINUAR"
 DIREITA_BIBLIOTECA = "[1] Ir para a direita (biblioteca)"
 FRENTE_BURACO = "[2] Ir para frente (buraco)"
@@ -269,13 +270,13 @@ class GameState:
 
     def _handle_inicio_demo(self, _):
         self.tela_atual = Tela.ESCOLHA_SALAO
-        self.textos = ["Você está no salão principal da árvore.", "O que deseja fazer?", "1) Biblioteca", "2) Buraco", "3) Voltar"]
+        self.textos = ["Você está no salão principal da árvore.", "O que deseja fazer?", "1) Biblioteca", "2) Buraco", f"3) {VOLTAR}"]
         self.escolhas = ["1", "2", "3"]
 
     def _handle_escolha_salao(self, value):
         if value == "1":
             self.tela_atual = Tela.BIBLIOTECA
-            self.textos = ["Você entrou na biblioteca.", "1) Estantes", "2) Lampião", "3) Voltar"]
+            self.textos = ["Você entrou na biblioteca.", "1) Estantes", "2) Lampião", f"3) {VOLTAR}"]
             self.escolhas = ["1", "2", "3"]
         elif value == "2":
             self.tela_atual = Tela.BURACO
@@ -299,14 +300,14 @@ class GameState:
 
     def _handle_gavetas(self, value):
         if value == "1":
-            self.player.add_item("CHAVE VELHA")
-            self.choices.impacto1.append("Achou a CHAVE VELHA.")
+            self.player.add_item(f"{CHAVE_VELHA}")
+            self.choices.impacto1.append(f"Achou a {CHAVE_VELHA}.")
             self.tela_atual = Tela.BIBLIOTECA_CHAVE
             self.textos = ["Achou a CHAVE!", "[1] Pegar lampião", "[2] Sair"]
             self.escolhas = ["1", "2"]
         else:
             self.tela_atual = Tela.BIBLIOTECA
-            self.textos = ["Desistiu das gavetas.", "1-Estantes", "2-Lampião", "3-Voltar"]
+            self.textos = ["Desistiu das gavetas.", "1-Estantes", "2-Lampião", f"3-{VOLTAR}"]
             self.escolhas = ["1", "2", "3"]
 
     def _handle_lampiao(self, value):
@@ -317,12 +318,12 @@ class GameState:
             self.escolhas = ["1", "2"]
         else:
             self.tela_atual = Tela.BIBLIOTECA
-            self.textos = ["Lampião ficou.", "1-Estantes", "2-Lampião", "3-Voltar"]
+            self.textos = ["Lampião ficou.", "1-Estantes", "2-Lampião", f"3-{VOLTAR}"]
             self.escolhas = ["1", "2", "3"]
 
     def _handle_biblioteca_transicao(self, value):
         if value == "1":
-            item = "LAMPIÃO" if self.tela_atual == Tela.BIBLIOTECA_CHAVE else "CHAVE VELHA"
+            item = "LAMPIÃO" if self.tela_atual == Tela.BIBLIOTECA_CHAVE else f"{CHAVE_VELHA}"
             self.player.add_item(item)
         self._ir_para_salao()
 
@@ -338,7 +339,7 @@ class GameState:
 
     def _handle_cozinha_choice(self, value):
         if value == "1":
-            if self.player.has_item("CHAVE VELHA"):
+            if self.player.has_item(f"{CHAVE_VELHA}"):
                 self.player.add_item("HERBÁRIO")
                 self.tela_atual = Tela.FUGA
                 self.textos = ["Cuca aceitou a chave. Você tem o livro.", "ok"]
@@ -369,7 +370,7 @@ class GameState:
         self.escolhas = ["1", "2"]
 
     def _handle_acougue(self, value):
-        if value == "1" and self.player.has_item("CHAVE VELHA"):
+        if value == "1" and self.player.has_item(f"{CHAVE_VELHA}"):
             msg = "Você salvou a criança!"
         else:
             msg = "A criança não foi salva."
@@ -396,7 +397,7 @@ class GameState:
 
     def _ir_para_salao(self):
         self.tela_atual = Tela.ESCOLHA_SALAO
-        self.textos = ["Retornou ao salão.", "1) Biblioteca", "2) Buraco", "3) Voltar"]
+        self.textos = ["Retornou ao salão.", "1) Biblioteca", "2) Buraco", f"3) {VOLTAR}"]
         self.escolhas = ["1", "2", "3"]
 
     def get_textos(self):
