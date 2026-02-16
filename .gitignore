@@ -1,0 +1,10 @@
+# Pasta do Ambiente Virtual
+venv/
+.venv/
+
+# Arquivos de Teste e Cobertura
+.coverage
+htmlcov/
+.pytest_cache/
+__pycache__/
+*.pyc
