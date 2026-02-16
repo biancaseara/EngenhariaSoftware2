@@ -82,21 +82,39 @@ class QTEManager:
         elif qte_type == QTEType.QTE6:
             self.qte6.append(result)
 
+    # def get_last_result(self, qte_type):
+    #     if qte_type == QTEType.TUTORIAL:
+    #         return self.tutorial[-1] if self.tutorial else None
+    #     elif qte_type == QTEType.QTE1:
+    #         return self.qte1[-1] if self.qte1 else None
+    #     elif qte_type == QTEType.QTE2:
+    #         return self.qte2[-1] if self.qte2 else None
+    #     elif qte_type == QTEType.QTE3:
+    #         return self.qte3[-1] if self.qte3 else None
+    #     elif qte_type == QTEType.QTE4:
+    #         return self.qte4[-1] if self.qte4 else None
+    #     elif qte_type == QTEType.QTE5:
+    #         return self.qte5[-1] if self.qte5 else None
+    #     elif qte_type == QTEType.QTE6:
+    #         return self.qte6[-1] if self.qte6 else None
+
     def get_last_result(self, qte_type):
-        if qte_type == QTEType.TUTORIAL:
-            return self.tutorial[-1] if self.tutorial else None
-        elif qte_type == QTEType.QTE1:
-            return self.qte1[-1] if self.qte1 else None
-        elif qte_type == QTEType.QTE2:
-            return self.qte2[-1] if self.qte2 else None
-        elif qte_type == QTEType.QTE3:
-            return self.qte3[-1] if self.qte3 else None
-        elif qte_type == QTEType.QTE4:
-            return self.qte4[-1] if self.qte4 else None
-        elif qte_type == QTEType.QTE5:
-            return self.qte5[-1] if self.qte5 else None
-        elif qte_type == QTEType.QTE6:
-            return self.qte6[-1] if self.qte6 else None
+        # Mapeamos o Enum para o atributo da instância
+        mapping = {
+            QTEType.TUTORIAL: self.tutorial,
+            QTEType.QTE1: self.qte1,
+            QTEType.QTE2: self.qte2,
+            QTEType.QTE3: self.qte3,
+            QTEType.QTE4: self.qte4,
+            QTEType.QTE5: self.qte5,
+            QTEType.QTE6: self.qte6,
+        }
+
+        # Pegamos a lista correspondente
+        lista = mapping.get(qte_type)
+
+        # Retornamos o último item se a lista existir e não estiver vazia
+        return lista[-1] if lista else None
 
 class Player:
     def __init__(self):
