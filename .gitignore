@@ -1,6 +1,8 @@
 # Pasta do Ambiente Virtual
 venv/
 .venv/
+htmlcov/
+.coverage
 
 # Arquivos de Teste e Cobertura
 .coverage

@@ -41,26 +41,26 @@ def test_start_e_sair():
     game = GameState()
     game.start()
     assert game.tela_atual == Tela.MENU
-    game.process_action(None, "0")
+    game.process_action("0")
     assert game.finished
 
 
 def test_fluxo_nome_corrigido():
     game = GameState()
     game.start()
-    game.process_action(None, "1")  # iniciar
-    game.process_action(None, "ok")
-    game.process_action(None, "Lara")
-    game.process_action(None, "2")  # Corrigir nome
+    game.process_action("1")  # iniciar
+    game.process_action("ok")
+    game.process_action("Lara")
+    game.process_action("2")  # Corrigir nome
     assert game.tela_atual == Tela.NOME
-    game.process_action(None, "Lara")
-    game.process_action(None, "1")  # confirmar nome
-    game.process_action(None, "Touro")
-    game.process_action(None, "2")  # Corrigir signo
+    game.process_action("Lara")
+    game.process_action("1")  # confirmar nome
+    game.process_action("Touro")
+    game.process_action("2")  # Corrigir signo
     assert game.tela_atual == Tela.SIGNO
-    game.process_action(None, "Touro")
-    game.process_action(None, "1")
-    game.process_action(None, "ok")
+    game.process_action("Touro")
+    game.process_action("1")
+    game.process_action("ok")
     assert game.tela_atual == Tela.ESCOLHA_SALAO
 
 
@@ -77,18 +77,18 @@ def test_definir_planta_por_signo(signo):
 def test_fluxo_biblioteca_gaveta_e_voltar():
     g = GameState()
     g.tela_atual = Tela.ESCOLHA_SALAO
-    g.process_action(None, "1")  # biblioteca
-    g.process_action(None, "1")  # gavetas
-    g.process_action(None, "2")  # deixar pra lá
+    g.process_action("1")  # biblioteca
+    g.process_action("1")  # gavetas
+    g.process_action("2")  # deixar pra lá
     assert g.tela_atual == Tela.BIBLIOTECA
 
 
 def test_fluxo_biblioteca_chave_pega_lampiao():
     g = GameState()
     g.tela_atual = Tela.BIBLIOTECA
-    g.process_action(None, "1")
-    g.process_action(None, "1")
-    g.process_action(None, "1")
+    g.process_action("1")
+    g.process_action("1")
+    g.process_action("1")
     assert "CHAVE VELHA" in g.player.inventario
     assert "LAMPIÃO" in g.player.inventario
 
@@ -96,8 +96,8 @@ def test_fluxo_biblioteca_chave_pega_lampiao():
 def test_fluxo_lampiao_e_voltar_salao():
     g = GameState()
     g.tela_atual = Tela.BIBLIOTECA
-    g.process_action(None, "2")
-    g.process_action(None, "2")
+    g.process_action("2")
+    g.process_action("2")
     assert g.tela_atual == Tela.BIBLIOTECA
 
 
@@ -105,23 +105,23 @@ def test_fluxo_biblioteca_lampiao_pegar_chave():
     g = GameState()
     g.player.add_item("LAMPIÃO")
     g.tela_atual = Tela.BIBLIOTECA_LAMPIAO
-    g.process_action(None, "1")
+    g.process_action("1")
     assert "CHAVE VELHA" in g.player.inventario
 
 
 def test_fluxo_buraco_para_cozinha():
     g = GameState()
     g.tela_atual = Tela.ESCOLHA_SALAO
-    g.process_action(None, "2")
-    g.process_action(None, "ok")
+    g.process_action("2")
+    g.process_action("ok")
     assert g.tela_atual == Tela.COZINHA
 
 
 def test_fluxo_fuga_e_salvar_crianca_sem_chave():
     g = GameState()
     g.tela_atual = Tela.FUGA
-    g.process_action(None, "ok")
-    g.process_action(None, "2")
+    g.process_action("ok")
+    g.process_action("2")
     assert "não" in " ".join(g.choices.crianca_salva).lower()
 
 
@@ -129,16 +129,16 @@ def test_fluxo_fuga_e_salvar_crianca_com_chave():
     g = GameState()
     g.tela_atual = Tela.FUGA
     g.player.add_item("CHAVE VELHA")
-    g.process_action(None, "ok")
-    g.process_action(None, "1")
+    g.process_action("ok")
+    g.process_action("1")
     assert "salvou" in " ".join(g.choices.crianca_salva).lower()
 
 
 def test_outro_anfitriao_ate_fim():
     g = GameState()
     g.tela_atual = Tela.OUTRO_ANFITRIAO
-    g.process_action(None, "ok")
-    g.process_action(None, "ok")
+    g.process_action("ok")
+    g.process_action("ok")
     assert g.finished
 
 
@@ -150,23 +150,23 @@ def test_negociar_com_cuca_com_chave():
     g = GameState()
     g.tela_atual = Tela.COZINHA_CHOICE
     g.player.add_item("CHAVE VELHA")
-    g.process_action(None, "1")
+    g.process_action("1")
     assert "HERBÁRIO" in g.player.inventario
 
 
 def test_negociar_com_cuca_sem_chave():
     g = GameState()
     g.tela_atual = Tela.COZINHA_CHOICE
-    g.process_action(None, "1")
+    g.process_action("1")
     assert g.tela_atual == Tela.GAME_OVER
 
 
 def test_roubo_qte_sucesso():
     g = GameState()
     g.tela_atual = Tela.COZINHA_CHOICE
-    g.process_action(None, "2")
+    g.process_action("2")
     assert g.tela_atual == Tela.QTE
-    g.process_action(None, "SUCESSO")
+    g.process_action("SUCESSO")
     assert g.tela_atual == Tela.FUGA
 
 
@@ -174,14 +174,14 @@ def test_roubo_qte_falha():
     g = GameState()
     g.qte_aguardando = QTEType.QTE3
     g.tela_atual = Tela.QTE
-    g.process_action(None, "FALHA")
+    g.process_action("FALHA")
     assert g.tela_atual == Tela.GAME_OVER
 
 
 def test_game_over_e_fim():
     g = GameState()
     g.tela_atual = Tela.GAME_OVER
-    g.process_action(None, "ok")
+    g.process_action("ok")
     assert g.finished
 
 
@@ -203,7 +203,7 @@ def test_get_estado_jogo_funcoes_auxiliares():
 def test_escolha_salao_opcao_3_mostra_texto_e_ok():
     g = GameState()
     g.tela_atual = Tela.ESCOLHA_SALAO
-    g.process_action(None, "3")
+    g.process_action("3")
     assert g.escolhas == ["ok"]
     assert any("Você precisa do livro" in t or "Não Lara" in t for t in g.textos)
 
@@ -211,7 +211,7 @@ def test_escolha_salao_opcao_3_mostra_texto_e_ok():
 def test_biblioteca_opcao_3_retorna_para_salao():
     g = GameState()
     g.tela_atual = Tela.BIBLIOTECA
-    g.process_action(None, "3")
+    g.process_action("3")
     assert g.tela_atual == Tela.ESCOLHA_SALAO
     assert "Você retorna ao salão." in g.textos[0]
 
@@ -219,7 +219,7 @@ def test_biblioteca_opcao_3_retorna_para_salao():
 def test_lampiao_pegar_adiciona_item_e_muda_tela():
     g = GameState()
     g.tela_atual = Tela.LAMPIAO
-    g.process_action(None, "1")
+    g.process_action("1")
     assert "LAMPIÃO" in g.player.inventario
     assert g.tela_atual == Tela.BIBLIOTECA_LAMPIAO
 
@@ -227,7 +227,7 @@ def test_lampiao_pegar_adiciona_item_e_muda_tela():
 def test_biblioteca_chave_opcao_2_retorna_salao():
     g = GameState()
     g.tela_atual = Tela.BIBLIOTECA_CHAVE
-    g.process_action(None, "2")
+    g.process_action("2")
     assert g.tela_atual == Tela.ESCOLHA_SALAO
     assert "Você retorna ao salão." in g.textos[0]
 
@@ -237,7 +237,7 @@ def test_biblioteca_lampiao_opcao_2_retorna_salao():
     g.tela_atual = Tela.BIBLIOTECA_LAMPIAO
     g.player.add_item("CHAVE VELHA")   # garante que o item exista
     g.player.remove_item("CHAVE VELHA")  # agora a remoção efetiva ocorre
-    g.process_action(None, "2")
+    g.process_action("2")
     assert g.tela_atual == Tela.ESCOLHA_SALAO
     assert "Você retorna ao salão." in g.textos[0]
 
@@ -245,6 +245,15 @@ def test_biblioteca_lampiao_opcao_2_retorna_salao():
 def test_cozinha_transicao_para_escolha_qte():
     g = GameState()
     g.tela_atual = Tela.COZINHA
-    g.process_action(None, "ok")
+    g.process_action("ok")
     assert g.tela_atual == Tela.COZINHA_CHOICE
     assert "[1] Tentar negociar" in " ".join(g.textos)
+
+def test_cobertura_fim_real():
+    g = GameState()
+    # Forçamos o estado para a tela FIM
+    g.tela_atual = Tela.FIM
+    # Chamamos uma ação qualquer para disparar o handler
+    g.process_action("ok")
+    # Verificamos se ele executou a linha self.finished = True
+    assert g.finished is True
