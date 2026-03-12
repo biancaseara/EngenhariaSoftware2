@@ -213,7 +213,7 @@ def test_biblioteca_opcao_3_retorna_para_salao():
     g.tela_atual = Tela.BIBLIOTECA
     g.process_action("3")
     assert g.tela_atual == Tela.ESCOLHA_SALAO
-    assert "Você retorna ao salão." in g.textos[0]
+    assert "Retornou ao salão." in g.textos[0]
 
 
 def test_lampiao_pegar_adiciona_item_e_muda_tela():
@@ -229,7 +229,7 @@ def test_biblioteca_chave_opcao_2_retorna_salao():
     g.tela_atual = Tela.BIBLIOTECA_CHAVE
     g.process_action("2")
     assert g.tela_atual == Tela.ESCOLHA_SALAO
-    assert "Você retorna ao salão." in g.textos[0]
+    assert "Retornou ao salão." in g.textos[0]
 
 
 def test_biblioteca_lampiao_opcao_2_retorna_salao():
@@ -239,7 +239,7 @@ def test_biblioteca_lampiao_opcao_2_retorna_salao():
     g.player.remove_item("CHAVE VELHA")  # agora a remoção efetiva ocorre
     g.process_action("2")
     assert g.tela_atual == Tela.ESCOLHA_SALAO
-    assert "Você retorna ao salão." in g.textos[0]
+    assert "Retornou ao salão." in g.textos[0]
 
 
 def test_cozinha_transicao_para_escolha_qte():
@@ -247,7 +247,7 @@ def test_cozinha_transicao_para_escolha_qte():
     g.tela_atual = Tela.COZINHA
     g.process_action("ok")
     assert g.tela_atual == Tela.COZINHA_CHOICE
-    assert "[1] Tentar negociar" in " ".join(g.textos)
+    assert "[1] Negociar" in " ".join(g.textos)
 
 def test_cobertura_fim_real():
     g = GameState()

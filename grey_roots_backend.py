@@ -8,7 +8,7 @@ DIREITA_BIBLIOTECA = "[1] Ir para a direita (biblioteca)"
 FRENTE_BURACO = "[2] Ir para frente (buraco)"
 VOLTAR_FORA = "[3] Voltar para fora"
 OLHAR_ESTANTES = "[1] Olhar estantes"
-PEGAR_LAMPIAO =   "[2] Pegar lampião"
+PEGAR_LAMPIAO = "[2] Pegar lampião"
 VOLTAR_SALAO = "[3] Voltar para o salão"
 RETORNA_SALAO = "Você retorna ao salão."
 
@@ -38,6 +38,7 @@ class Tela(Enum):
     QTE = auto()
     FIM = auto()
 
+
 class QTEType(Enum):
     TUTORIAL = auto
     QTE1 = auto()
@@ -46,6 +47,7 @@ class QTEType(Enum):
     QTE4 = auto()
     QTE5 = auto()
     QTE6 = auto()
+
 
 class QTEManager:
     def __init__(self):
@@ -100,6 +102,7 @@ class QTEManager:
         # Retornamos o último item se a lista existir e não estiver vazia
         return lista[-1] if lista else None
 
+
 class Player:
     def __init__(self):
         self.name = ""
@@ -124,6 +127,7 @@ class Player:
     def has_item(self, item):
         return item in self.inventario
 
+
 class Choices:
     def __init__(self):
         self.impacto1 = []
@@ -138,6 +142,7 @@ class Choices:
         self.impacto3.clear()
         self.queimar_arvore.clear()
         self.crianca_salva.clear()
+
 
 class GameState:
     def __init__(self):
@@ -154,7 +159,11 @@ class GameState:
 
     def start(self):
         self.tela_atual = Tela.MENU
-        self.textos = ["----- THE GUTTER -----", "1) Iniciar aventura (DEMO)", "0) Sair"]
+        self.textos = [
+            "----- THE GUTTER -----",
+            "1) Iniciar aventura (DEMO)",
+            "0) Sair",
+        ]
         self.escolhas = ["1", "0"]
         self.player = Player()
         self.choices = Choices()
@@ -163,30 +172,25 @@ class GameState:
 
     def definir_planta_por_signo(self, sign):
         signo = sign.lower()
-        if signo in ['áries', 'aries']:
-            self.player.planta = 'Ira de Xandoré'
-        elif signo == 'touro':
-            self.player.planta = 'Hâdia de Rudá'
-        elif signo in ['gêmeos', 'gemeos']:
-            self.player.planta = 'Awôto de Polô'
-        elif signo in ['câncer', 'cancer']:
-            self.player.planta = 'Áuéra de Jaci'
-        elif signo in ['leão', 'leao']:
-            self.player.planta = 'Alâdia de Guaraci'
-        elif signo == 'virgem':
-            self.player.planta = 'Ewûa de Sumé'
-        elif signo == 'libra':
-            self.player.planta = 'Inkã de Jurupari'
-        elif signo in ['escorpião', 'escorpiao']:
-            self.player.planta = 'Anhangá'
-        elif signo in ['sagitário', 'sagitario']:
-            self.player.planta = 'Mangará de Tupã'
-        elif signo == 'capricornio':
-            self.player.planta = 'Fogo de Angra'
-        elif signo in ['aquário', 'aquario']:
-            self.player.planta = 'Flauta de Akuanbuba'
-        elif signo == 'peixes':
-            self.player.planta = 'Rio de Caramuru'
+        
+        # O dicionário resolve a complexidade na hora!
+        mapa_plantas = {
+            'áries': 'Cacto', 'aries': 'Cacto',
+            'touro': 'Rosa',
+            'gêmeos': 'Margarida', 'gemeos': 'Margarida',
+            'câncer': 'Lírio', 'cancer': 'Lírio',
+            'leão': 'Girassol', 'leao': 'Girassol',
+            'virgem': 'Orquídea',
+            'libra': 'Hortênsia',
+            'escorpião': 'Violeta', 'escorpiao': 'Violeta',
+            'sagitário': 'Tulipa', 'sagitario': 'Tulipa',
+            'capricórnio': 'Bonsai', 'capricornio': 'Bonsai',
+            'aquário': 'Samambaia', 'aquario': 'Samambaia',
+            'peixes': 'Vitória-régia'
+        }
+        
+        # Pega a planta do dicionário, ou uma planta "Misteriosa" se ele digitar errado
+        self.player.planta = mapa_plantas.get(signo, 'Misteriosa')
 
     def process_action(self, value=None):
         # Mapeamento para reduzir Complexidade Cognitiva
@@ -213,7 +217,7 @@ class GameState:
             Tela.OUTRO_ANFITRIAO: self._handle_outro_anfitriao,
             Tela.ESCOLHAS_FINAIS: self._handle_escolhas_finais,
             Tela.GAME_OVER: self._handle_fim_triste,
-            Tela.FIM: self._handle_fim_real
+            Tela.FIM: self._handle_fim_real,
         }
 
         handler = handlers.get(self.tela_atual)
@@ -224,7 +228,10 @@ class GameState:
     def _handle_menu(self, value):
         if value == "1":
             self.tela_atual = Tela.INTRO
-            self.textos = ["Olá, é um prazer ter você conosco.", "[ENTER para continuar]"]
+            self.textos = [
+                "Olá, é um prazer ter você conosco.",
+                "[ENTER para continuar]",
+            ]
             self.escolhas = ["ok"]
         elif value == "0":
             self.finished = True
@@ -254,13 +261,21 @@ class GameState:
         self.player.set_signo(value)
         self.definir_planta_por_signo(value)
         self.tela_atual = Tela.CONFIRMA_SIGNO
-        self.textos = [f"Então seu signo é {self.player.signo}, correto?", "[1] SIM", "[2] NÃO"]
+        self.textos = [
+            f"Então seu signo é {self.player.signo}, correto?",
+            "[1] SIM",
+            "[2] NÃO",
+        ]
         self.escolhas = ["1", "2"]
 
     def _handle_confirma_signo(self, value):
         if value == "1":
             self.tela_atual = Tela.INICIO_DEMO
-            self.textos = [f"Seu signo ({self.player.signo}) foi confirmado.", f"Sua planta especial: {self.player.planta}.", "CONTINUAR"]
+            self.textos = [
+                f"Seu signo ({self.player.signo}) foi confirmado.",
+                f"Sua planta especial: {self.player.planta}.",
+                "CONTINUAR",
+            ]
             self.escolhas = ["ok"]
         else:
             self.tela_atual = Tela.SIGNO
@@ -269,13 +284,24 @@ class GameState:
 
     def _handle_inicio_demo(self, _):
         self.tela_atual = Tela.ESCOLHA_SALAO
-        self.textos = ["Você está no salão principal da árvore.", "O que deseja fazer?", "1) Biblioteca", "2) Buraco", f"3) {VOLTAR}"]
+        self.textos = [
+            "Você está no salão principal da árvore.",
+            "O que deseja fazer?",
+            "1) Biblioteca",
+            "2) Buraco",
+            f"3) {VOLTAR}",
+        ]
         self.escolhas = ["1", "2", "3"]
 
     def _handle_escolha_salao(self, value):
         if value == "1":
             self.tela_atual = Tela.BIBLIOTECA
-            self.textos = ["Você entrou na biblioteca.", "1) Estantes", "2) Lampião", f"3) {VOLTAR}"]
+            self.textos = [
+                "Você entrou na biblioteca.",
+                "1) Estantes",
+                "2) Lampião",
+                f"3) {VOLTAR}",
+            ]
             self.escolhas = ["1", "2", "3"]
         elif value == "2":
             self.tela_atual = Tela.BURACO
@@ -306,7 +332,12 @@ class GameState:
             self.escolhas = ["1", "2"]
         else:
             self.tela_atual = Tela.BIBLIOTECA
-            self.textos = ["Desistiu das gavetas.", "1-Estantes", "2-Lampião", f"3-{VOLTAR}"]
+            self.textos = [
+                "Desistiu das gavetas.",
+                "1-Estantes",
+                "2-Lampião",
+                f"3-{VOLTAR}",
+            ]
             self.escolhas = ["1", "2", "3"]
 
     def _handle_lampiao(self, value):
@@ -322,7 +353,11 @@ class GameState:
 
     def _handle_biblioteca_transicao(self, value):
         if value == "1":
-            item = "LAMPIÃO" if self.tela_atual == Tela.BIBLIOTECA_CHAVE else f"{CHAVE_VELHA}"
+            item = (
+                "LAMPIÃO"
+                if self.tela_atual == Tela.BIBLIOTECA_CHAVE
+                else f"{CHAVE_VELHA}"
+            )
             self.player.add_item(item)
         self._ir_para_salao()
 
@@ -380,7 +415,11 @@ class GameState:
 
     def _handle_outro_anfitriao(self, _):
         self.tela_atual = Tela.ESCOLHAS_FINAIS
-        self.textos = ["Fim da aventura!", f"Escolhas: {self.choices.impacto1}", "ENTER"]
+        self.textos = [
+            "Fim da aventura!",
+            f"Escolhas: {self.choices.impacto1}",
+            "ENTER",
+        ]
         self.escolhas = ["ok"]
 
     def _handle_escolhas_finais(self, _):
@@ -396,7 +435,12 @@ class GameState:
 
     def _ir_para_salao(self):
         self.tela_atual = Tela.ESCOLHA_SALAO
-        self.textos = ["Retornou ao salão.", "1) Biblioteca", "2) Buraco", f"3) {VOLTAR}"]
+        self.textos = [
+            "Retornou ao salão.",
+            "1) Biblioteca",
+            "2) Buraco",
+            f"3) {VOLTAR}",
+        ]
         self.escolhas = ["1", "2", "3"]
 
     def get_textos(self):
@@ -418,8 +462,8 @@ class GameState:
                 "qte3": self.qte_manager.qte3,
                 "qte4": self.qte_manager.qte4,
                 "qte5": self.qte_manager.qte5,
-                "qte6": self.qte_manager.qte6
-            }
+                "qte6": self.qte_manager.qte6,
+            },
         }
 
     def is_finished(self):

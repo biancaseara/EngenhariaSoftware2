@@ -1,0 +1,5 @@
+[tool.ruff.lint]
+select = ["E", "F", "C90", "PLR", "SIM"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=. --cov-report=xml"
